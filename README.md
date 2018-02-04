@@ -1,3 +1,12 @@
+# 修改内容
+
+- 支持头部替换时颜色渐变  (add by dxs)
+
+
+# 以下内容为原作者
+
+
+
 # StickyDecoration
 利用`RecyclerView.ItemDecoration`实现顶部悬浮效果
 

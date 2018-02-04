@@ -134,11 +134,11 @@ public class PowerfulStickyDecoration extends BaseDecoration {
             return;
         }
         if(bottom<=mGroupHeight){
-            mGroutPaint.setAlpha(100);
+            mGroutPaint.setAlpha(255);
             return;
         }
         float alpa=(mGroupHeight*2-bottom)/(float)mGroupHeight;
-        mGroutPaint.setAlpha((int) (alpa*100));
+        mGroutPaint.setAlpha((int) (alpa*255));
     }
 
     /**

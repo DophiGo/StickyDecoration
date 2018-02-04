@@ -90,6 +90,9 @@ public class PowerfulStickyDecoration extends BaseDecoration {
                         bottom = viewBottom;
                     }
                 }
+                if(type==1){
+                    changeGroupColor(bottom);
+                }
                 c.drawRect(left, bottom - mGroupHeight, right, bottom, mGroutPaint);
                 //根据position获取View
                 View groupView;
@@ -106,6 +109,7 @@ public class PowerfulStickyDecoration extends BaseDecoration {
                             View.MeasureSpec.makeMeasureSpec(right, View.MeasureSpec.EXACTLY),
                             View.MeasureSpec.makeMeasureSpec(mGroupHeight, View.MeasureSpec.EXACTLY));
                     groupView.layout(left, bottom - mGroupHeight, right, bottom);
+                    Log.e("dxsTest2","bottom - mGroupHeight:"+(bottom - mGroupHeight)+"--bottom:"+bottom);
                 } else {
                     groupView = headViewMap.get(position);
                 }
@@ -122,6 +126,19 @@ public class PowerfulStickyDecoration extends BaseDecoration {
                 stickyHeaderPosArray.put(position, bottom);
             }
         }
+    }
+
+    private void changeGroupColor(int bottom){
+        if(bottom>=mGroupHeight*2){
+            mGroutPaint.setAlpha(0);
+            return;
+        }
+        if(bottom<=mGroupHeight){
+            mGroutPaint.setAlpha(100);
+            return;
+        }
+        float alpa=(mGroupHeight*2-bottom)/(float)mGroupHeight;
+        mGroutPaint.setAlpha((int) (alpa*100));
     }
 
     /**
@@ -186,6 +203,12 @@ public class PowerfulStickyDecoration extends BaseDecoration {
             mDecoration.mGroutPaint.setColor(mDecoration.mGroupBackground);
             return this;
         }
+
+        public Builder setGroupBackgroundType(int type) {
+            mDecoration.type = type;
+            return this;
+        }
+
 
         /**
          * 设置分割线高度

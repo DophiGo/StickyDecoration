@@ -31,6 +31,8 @@ public abstract class BaseDecoration extends RecyclerView.ItemDecoration {
     int mDivideColor = Color.parseColor("#CCCCCC");//分割线颜色，默认灰色
     int mDivideHeight = 0;      //分割线宽度
 
+    int type=0;//是否需要渐变0 false
+
     Paint mDividePaint;
     /**
      * 缓存分组第一个item的position

@@ -109,7 +109,6 @@ public class PowerfulStickyDecoration extends BaseDecoration {
                             View.MeasureSpec.makeMeasureSpec(right, View.MeasureSpec.EXACTLY),
                             View.MeasureSpec.makeMeasureSpec(mGroupHeight, View.MeasureSpec.EXACTLY));
                     groupView.layout(left, bottom - mGroupHeight, right, bottom);
-                    Log.e("dxsTest2","bottom - mGroupHeight:"+(bottom - mGroupHeight)+"--bottom:"+bottom);
                 } else {
                     groupView = headViewMap.get(position);
                 }

@@ -80,6 +80,7 @@ public class PowerfulStickyRecyclerViewActivity extends AppCompatActivity {
                 .setDivideColor(Color.parseColor("#000000"))            //分割线颜色
                 .setGroupBackgroundType(1)
                 .setDivideHeight(DensityUtil.dip2px(this, 5))     //分割线高度
+                .setPaddingBottomType(1)                                           //是否在最后一个Item底部添加一个Group的padding
                 .setOnClickListener(new OnGroupClickListener() {                   //点击事件，返回当前分组下的第一个item的position
                     @Override
                     public void onClick(int position) {                                 //Group点击事件

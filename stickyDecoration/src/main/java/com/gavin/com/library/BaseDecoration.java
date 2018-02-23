@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.GestureDetector;
@@ -32,6 +33,7 @@ public abstract class BaseDecoration extends RecyclerView.ItemDecoration {
     int mDivideHeight = 0;      //分割线宽度
 
     int type=0;//是否需要渐变0 false
+    int PaddingBottomType=0;//是否最后Item补一个Group高度  0不补  1补
 
     Paint mDividePaint;
     /**
@@ -55,6 +57,13 @@ public abstract class BaseDecoration extends RecyclerView.ItemDecoration {
         this.mOnGroupClickListener = listener;
     }
 
+    public int getPaddingBottomType() {
+        return PaddingBottomType;
+    }
+
+    public void setPaddingBottomType(int paddingBottomType) {
+        PaddingBottomType = paddingBottomType;
+    }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -80,6 +89,15 @@ public abstract class BaseDecoration extends RecyclerView.ItemDecoration {
                 outRect.top = mGroupHeight; //为悬浮view预留空间
             } else {
                 outRect.top = mDivideHeight; //为分割线预留空间
+            }
+        }
+
+        //补一个Group高度，避免半个Group悬挂在顶端
+        int lpos=parent.getChildLayoutPosition(view);
+        int itemCount=parent.getLayoutManager().getItemCount();
+        if(PaddingBottomType==1){
+            if((lpos+1)==itemCount){
+                outRect.bottom=mGroupHeight;
             }
         }
     }

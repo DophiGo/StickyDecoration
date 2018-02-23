@@ -254,6 +254,11 @@ public class PowerfulStickyDecoration extends BaseDecoration {
             return this;
         }
 
+        public Builder setPaddingBottomType(int paddingBottemType) {
+            mDecoration.setPaddingBottomType(paddingBottemType);
+            return this;
+        }
+
         public PowerfulStickyDecoration build() {
             return mDecoration;
         }

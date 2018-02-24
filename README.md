@@ -1,8 +1,8 @@
 ## 修改内容
 [![](https://jitpack.io/v/dxsdyhm/StickyDecoration.svg)](https://jitpack.io/#dxsdyhm/StickyDecoration)
 
-- 支持头部替换时颜色渐变 .setGroupBackgroundType(1) (add by dxs)
-- 支持底部预留一个Group高度的间距 .setPaddingBottomType(1) (add by dxs)
+- [1.2.3]支持头部替换时颜色渐变 .setGroupBackgroundType(1) (add by dxs)
+- [1.2.4]支持底部预留一个Group高度的间距 .setPaddingBottomType(1) (add by dxs)
 
 [原地址使用说明](https://github.com/Gavin-ZYX/StickyDecoration)
 

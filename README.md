@@ -1,8 +1,9 @@
 # 修改内容
 
 - 支持头部替换时颜色渐变 .setGroupBackgroundType(1) (add by dxs)
+- 支持底部预留一个Group高度的间距 .setPaddingBottomType(1) (add by dxs)
 
-[原地址是用说明](https://github.com/Gavin-ZYX/StickyDecoration)
+[原地址使用说明](https://github.com/Gavin-ZYX/StickyDecoration)
 
 ## 添加依赖
 项目要求： `minSdkVersion` >= 14.

@@ -17,6 +17,7 @@ import com.gavin.com.library.listener.PowerGroupListener;
 
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
+import java.util.HashMap;
 
 /**
  * Created by gavin
@@ -25,23 +26,16 @@ import java.lang.ref.SoftReference;
  * 利用分割线实现悬浮
  */
 
-public class PowerfulStickyDecoration extends BaseDecoration {
-
+public class PowerfulHashStickyDecoration extends BaseDecoration {
 
     private Paint mGroutPaint;
-    /**
-     * 使用软引用缓存图片，防止内存泄露
-     */
-    private SparseArray<Reference<Bitmap>> mBitmapCache = new SparseArray<>();
 
     private PowerGroupListener mGroupListener;
 
-    /**
-     * 缓存View
-     */
-    private SparseArray<View> headViewMap = new SparseArray<>();
+    private HashMap<String,Reference<Bitmap>> mGroupBitmap=new HashMap<>();
+    private HashMap<String,View> mGroupView=new HashMap<>();
 
-    public PowerfulStickyDecoration(PowerGroupListener groupListener) {
+    private PowerfulHashStickyDecoration(PowerGroupListener groupListener) {
         super();
         this.mGroupListener = groupListener;
         //设置悬浮栏的画笔---mGroutPaint
@@ -96,7 +90,7 @@ public class PowerfulStickyDecoration extends BaseDecoration {
                 c.drawRect(left, bottom - mGroupHeight, right, bottom, mGroutPaint);
                 //根据position获取View
                 View groupView;
-                if (headViewMap.get(position) == null) {
+                if (mGroupView.get(curGroupName) == null) {
                     groupView = getGroupView(position);
                     if (groupView == null) {
                         return;
@@ -109,17 +103,17 @@ public class PowerfulStickyDecoration extends BaseDecoration {
                             View.MeasureSpec.makeMeasureSpec(right, View.MeasureSpec.EXACTLY),
                             View.MeasureSpec.makeMeasureSpec(mGroupHeight, View.MeasureSpec.EXACTLY));
                     groupView.layout(left, bottom - mGroupHeight, right, bottom);
+                    mGroupView.put(curGroupName,groupView);
                 } else {
-                    groupView = headViewMap.get(position);
+                    groupView = mGroupView.get(curGroupName);
                 }
                 Bitmap bitmap;
-                if (mBitmapCache.get(position) != null && mBitmapCache.get(position).get() != null) {
-                    bitmap = mBitmapCache.get(position).get();
-                } else {
+                if(mGroupBitmap.get(curGroupName)!=null && mGroupBitmap.get(curGroupName).get()!=null){
+                    bitmap = mGroupBitmap.get(curGroupName).get();
+                }else {
                     bitmap = Bitmap.createBitmap(groupView.getDrawingCache());
-                    mBitmapCache.put(position, new SoftReference<Bitmap>(bitmap));
+                    mGroupBitmap.put(curGroupName,new SoftReference<Bitmap>(bitmap));
                 }
-
                 c.drawBitmap(bitmap, left, bottom - mGroupHeight, null);
                 //将头部信息放进array，用于处理点击事件
                 stickyHeaderPosArray.put(position, bottom);
@@ -161,7 +155,7 @@ public class PowerfulStickyDecoration extends BaseDecoration {
      * @param position position
      * @return 组名
      */
-    public View getGroupView(int position) {
+    private View getGroupView(int position) {
         if (mGroupListener != null) {
             return mGroupListener.getGroupView(position);
         } else {
@@ -170,10 +164,10 @@ public class PowerfulStickyDecoration extends BaseDecoration {
     }
 
     public static class Builder {
-        PowerfulStickyDecoration mDecoration;
+        PowerfulHashStickyDecoration mDecoration;
 
         private Builder(PowerGroupListener listener) {
-            mDecoration = new PowerfulStickyDecoration(listener);
+            mDecoration = new PowerfulHashStickyDecoration(listener);
         }
 
         public static Builder init(PowerGroupListener listener) {
@@ -259,7 +253,7 @@ public class PowerfulStickyDecoration extends BaseDecoration {
             return this;
         }
 
-        public PowerfulStickyDecoration build() {
+        public PowerfulHashStickyDecoration build() {
             return mDecoration;
         }
     }
